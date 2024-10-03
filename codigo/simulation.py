@@ -1,37 +1,30 @@
-def knight_dialer(N):
-    # Posibles movimientos desde cada posicion
-    moves = {
-        0: [4, 6],
-        1: [6, 8],
-        2: [7, 9],
-        3: [4, 8],
-        4: [0, 3, 9],
-        5: [],
-        6: [0, 1, 7],
-        7: [2, 6],
-        8: [1, 3],
-        9: [2, 4],
-    }
+import numpy as np
 
-    # Creamos una tabla para guardar los resultados
-    dp = [ [0]*10 for _ in range(N+1)]
-    for digit in range(10):
-        dp[0][digit] = 1
+# Matriz de adyacencia del teclado numérico
+matriz_adyacencia = np.array([
+    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],  # Desde el 0: va al 4 y al 6
+    [0, 0, 0, 0, 0, 0, 1, 0, 1, 0],  # Desde el 1: va al 6 y al 8
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],  # Desde el 2: va al 7 y al 9
+    [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],  # Desde el 3: va al 4 y al 8
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],  # Desde el 4: va al 0, 3 y 9
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # Desde el 5: no tiene movimientos
+    [1, 1, 0, 0, 0, 0, 0, 1, 0, 0],  # Desde el 6: va al 0, 1 y 7
+    [0, 0, 1, 0, 0, 0, 1, 0, 0, 0],  # Desde el 7: va al 2 y al 6
+    [0, 1, 0, 1, 0, 0, 0, 0, 0, 0],  # Desde el 8: va al 1 y al 3
+    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],  # Desde el 9: va al 2 y al 4
+])
 
-    # Ejecutamos el algoritmo el numero pedido de veces
-    for n in range(1, N+1):
-        for digit in range(10):
-            dp[n][digit] = 0  # Initialize for current n
-        for prev_digit in range(10):
-            for digit in moves[prev_digit]:
-                dp[n][digit] += dp[n-1][prev_digit]
+def contar_rutas(pasos):
+    # Potencia de la matriz de adyacencia
+    matriz_potencia = np.linalg.matrix_power(matriz_adyacencia, pasos)
+    
+    # Sumar todas las rutas posibles desde cualquier dígito (0 a 9)
+    total_rutas = np.sum(matriz_potencia)
+    
+    return total_rutas
 
-    # Suma todos los valores de la tabla
-    total_sequences = sum(dp[N][digit] for digit in range(10))
-    return total_sequences
+# Leer el número de pasos
+pasos = int(input("Número de pasos: "))
 
-valid_values = [1,2,3,5,8,10,15,18,21,23,32,50]
-for N in valid_values:
-    total_sequences = knight_dialer(N)
-    print(f"Posibilidades validas para {N} movimientos: {total_sequences}")
-
+# Calcular y mostrar el número total de rutas posibles
+print("Total de rutas posibles:", contar_rutas(pasos))
