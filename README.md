@@ -20,7 +20,7 @@
 | 32       | 2792668987392     | 5235212288.0          |
 
 
-### Primnera aproximacion
+### Primera aproximacion
 Para plantear mejor el problema y verlo desde una prespectiva diferente al papel, lo primero que hemos hecho ha sido crear un algoritmo recursivo que simula los movimientos del caballo.
 
 [simulation.py](codigo/simulation.py)
