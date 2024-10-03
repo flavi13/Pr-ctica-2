@@ -1,30 +1,40 @@
-import numpy as np
+from functools import lru_cache
 
-# Matriz de adyacencia del teclado numérico
-matriz_adyacencia = np.array([
-    [0, 0, 0, 0, 1, 0, 1, 0, 0, 0],  # Desde el 0: va al 4 y al 6
-    [0, 0, 0, 0, 0, 0, 1, 0, 1, 0],  # Desde el 1: va al 6 y al 8
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],  # Desde el 2: va al 7 y al 9
-    [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],  # Desde el 3: va al 4 y al 8
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1],  # Desde el 4: va al 0, 3 y 9
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # Desde el 5: no tiene movimientos
-    [1, 1, 0, 0, 0, 0, 0, 1, 0, 0],  # Desde el 6: va al 0, 1 y 7
-    [0, 0, 1, 0, 0, 0, 1, 0, 0, 0],  # Desde el 7: va al 2 y al 6
-    [0, 1, 0, 1, 0, 0, 0, 0, 0, 0],  # Desde el 8: va al 1 y al 3
-    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],  # Desde el 9: va al 2 y al 4
-])
+movimientos = {
+    0: [6, 4],
+    1: [6, 8],
+    2: [7, 9],
+    3: [4, 8],
+    4: [3, 9, 0],
+    5: [],
+    6: [1, 7, 0],
+    7: [2, 6],
+    8: [1, 3],
+    9: [2, 4]
+}
 
-def contar_rutas(pasos):
-    # Potencia de la matriz de adyacencia
-    matriz_potencia = np.linalg.matrix_power(matriz_adyacencia, pasos)
+# Usamos lru_cache para memorizar los resultados de calcular()
+@lru_cache(None)
+def calcular(inicio, pasos):
+    if pasos == 0:
+        return 0
     
-    # Sumar todas las rutas posibles desde cualquier dígito (0 a 9)
-    total_rutas = np.sum(matriz_potencia)
+    movs = 0
+    for siguiente in movimientos[inicio]:
+        movs += 1 + calcular(siguiente, pasos - 1)
+
+    return movs
+
+def totalizar(pasos):
+    total = 0
+    _total = 0
     
-    return total_rutas
+    for i in range(10):
+        total += calcular(i, pasos)
+        if pasos > 1:
+            _total += calcular(i, pasos - 1)
+        else: _total += 1
+    
+    return total - _total
 
-# Leer el número de pasos
-pasos = int(input("Número de pasos: "))
-
-# Calcular y mostrar el número total de rutas posibles
-print("Total de rutas posibles:", contar_rutas(pasos))
+print('Options: {}'.format(str(totalizar(int(input('Steps: '))))))

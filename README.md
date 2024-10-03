@@ -28,3 +28,6 @@ Para plantear mejor el problema y verlo desde una prespectiva diferente al papel
 Como los resultados coinciden con la muestra del enunciado. Hemos asumido que tenemos el algoritmo en codigo
 
 ### Resolucion Matematica
+
+
+### Comprobacion Manual
