@@ -37,4 +37,8 @@ def totalizar(pasos):
     
     return total - _total
 
-print('Options: '.format(totalizar(input('Steps: '))))
+
+#print('Options: '.format(totalizar(input('Steps: '))))
+
+print('Options: {}'.format(str(totalizar(int(input('Steps: '))))))
+
