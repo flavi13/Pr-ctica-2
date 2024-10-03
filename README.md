@@ -43,7 +43,7 @@ Posibilidades validas para 32 movimientos: 2792668987392
 Como los resultados coinciden con la muestra del enunciado. Hemos tomado el resultado como bueno y hemos usado eso como base para plantear la formula matematica.
 
 ### Resolucion Matematica
-![Matriz](/imagenes/matriz.jpg)
+![formula](/imagenes/formula.jpg)
 
 ### Resolucion final
 Ya con la formual matematica la hemos implementado en codigo para confirmar que los valores coinciden hasta los 32
