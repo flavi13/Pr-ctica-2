@@ -33,3 +33,6 @@ Como los resultados coinciden con la muestra del enunciado. Hemos asumido que te
 
 
 ### Comprobacion Manual
+
+![Comprobacion 2](imagenes/c1.jpg)
+![Comprobacion 3](imagenes/c2.jpg)
